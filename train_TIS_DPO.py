@@ -40,12 +40,17 @@ args = parser.parse_args()
 os.environ["CUDA_VISIBLE_DEVICES"] = args.DEVICE_LIST
 # now = datetime.datetime.now()
 # timestamp_start = now.strftime("%Y%m%d_%H%M%S")
+
+# --- Dataset preprocessing ---
 dataset = load_dataset('json', data_files=args.data_train_path, split='train')
+# dataset = dataset.rename_column('question', 'prompt')
+def combine_prompt_and_context(example):
+    # print(f"prompt = {example['prompt']}")
+    example['prompt'] = '<Context>: ' + example['context'] + ' <prompt>: ' + example['prompt'] + ' <answer>:'
+    return example
+dataset = dataset.map(combine_prompt_and_context)
 print(dataset.column_names)
-print(f'type = {type(dataset)}')
-#print(dataset[0])
-# device = 'cuda:6'
-#device =  torch.device('cuda:7')
+
 model_dir = "T5"
 tokenizer = AutoTokenizer.from_pretrained(model_dir, use_fast=False)
 model = AutoModelForSeq2SeqLM.from_pretrained(model_dir, torch_dtype=torch.float16, device_map="auto") # = model to train

@@ -166,7 +166,7 @@ dataset = Dataset.from_dict(data_dict)
 qwen_custom_llm = QwenAPIChat()
 
 # embedding_model_name = "sentence-transformers/all-MiniLM-L6-v2"
-embedding_model_name = "bkai-foundation-models/vietnamese-bi-encoder" 
+embedding_model_name = args.embedding_model_name
 embedding_model = HuggingFaceEmbeddings(
     model_name=embedding_model_name,
     model_kwargs={'device': device},

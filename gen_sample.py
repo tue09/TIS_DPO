@@ -38,10 +38,6 @@ def read_jsonl(file_path):
             data.append(json.loads(line.strip()))
     return data
 
-# file_path_list = ["data/Vivi_true_train.jsonl"]
-#output_path_list = [f"gen2eval/positive_20250402_044103_checkpoint-1500.jsonl"]
-# output_path_list = [f"gen2eval/T5_full.jsonl"]
-
 #model_dir = "T5"
 #model_dir = "checkpoint/T5_dpo_positive_lora_2/checkpoint-834"
 #model_dir = "checkpoint/T5_dpo_positive_lora/20250402_044103/checkpoint-1500"
@@ -92,8 +88,8 @@ data_list = []
 with open(output_path, "w", encoding="utf-8") as file:
     for idx in tqdm(range(len(data_)), desc=file_path):
         ground_truth = data_[idx]['ground_truth']
-        full_prompt = f"System: {data_[idx]['context']}\nQuestion: {data_[idx]['question']}\nAnswer:"
-        prompt = data_[idx]['question']
+        full_prompt = f"<context>: {data_[idx]['context']}\n<prompt>: {data_[idx]['prompt']}\n <answer>:"
+        prompt = data_[idx]['prompt']
         for idy in range(NUM_RESPONSE_PER_PROMPT):
             text = generate_text(f"{full_prompt}")
             data_list.append({'context': data_[idx]['context'], 'prompt': prompt, 'ground_truth': ground_truth, 'response': text})

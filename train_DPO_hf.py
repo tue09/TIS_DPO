@@ -37,10 +37,10 @@ print(f"Train for {args.type_model} model")
 dataset = load_dataset('json', data_files=args.data_train_path, split='train')
 
 # --- Dataset preprocessing ---
-dataset = dataset.rename_column('question', 'prompt')
+# dataset = dataset.rename_column('question', 'prompt')
 def combine_prompt_and_context(example):
-    print(f"prompt = {example['prompt']}")
-    example['prompt'] = example['context'] + '. ' + example['prompt']
+    # print(f"prompt = {example['prompt']}")
+    example['prompt'] = '<Context>: ' + example['context'] + ' <prompt>: ' + example['prompt'] + ' <answer>:'
     return example
 dataset = dataset.map(combine_prompt_and_context)
 

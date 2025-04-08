@@ -24,7 +24,7 @@ args = parser.parse_args()
 os.environ["CUDA_VISIBLE_DEVICES"] = args.DEVICE_LIST
 
 dataset = load_dataset('json', data_files=args.data_train_path, split='train')
-dataset = dataset.rename_column('question', 'prompt')
+# dataset = dataset.rename_column('question', 'prompt')
 
 def combine_prompt_and_context(example):
     # example['prompt'] = example['context'] + '. ' + example['prompt']
@@ -48,7 +48,7 @@ negative_model = AutoModelForSeq2SeqLM.from_pretrained(args.negative_model_dir, 
 # Function to compute token-level importance weights
 def compute_sample_weights(model_positive, model_negative, tokenizer, context, prompt, chosen, rejected, L=-0.5, U=1.5):
     device = model_positive.device
-    input_ids = tokenizer(prompt, return_tensors='pt').input_ids.to(device)
+    input_ids = tokenizer('<Context>: ' + context + ' <prompt>: ' + prompt + ' <answer>:', return_tensors='pt').input_ids.to(device)
 
     # Compute weights for chosen response
     chosen_tokens = tokenizer(chosen, return_tensors='pt').input_ids.to(device)
