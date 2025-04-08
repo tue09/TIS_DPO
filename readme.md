@@ -29,7 +29,7 @@ This project implements the TIS-DPO training paradigm, which enhances preference
 - **Negative DPO Model:** Trained with (rejected, chosen) pairs.
 - **Token Weights Computation:** Token-level importance is derived from the logit differences of the two models.
 - **TIS-DPO Model:** Trained with token-weighted loss to better align with preference signals.
-- **Evaluation:** Final model is tested on held-out prompts and scored via Ragas.
+- **Evaluation:** Final model is tested on `[faithfulness, answer_correctness, context_precision, answer_relevancy context_recall]` via Ragas.
 
 ---
 
@@ -40,6 +40,7 @@ Make sure the following files exist in the `data/` directory:
 - **Training Data:**
   - `Vivi_true_train.jsonl` — Contains data for positive DPO training.
   - `Vivi_reverse_train.jsonl` — Contains data pairs for negative DPO training.
+- **Test Data:**
   - `Vivi_true_test.jsonl` — Contains data for evaluate model.
   
   _Note:_ Each line in these JSONL files must follow the standard format with the fields:  
@@ -71,7 +72,7 @@ Using both trained models, token-level importance weights are computed and saved
 
 ### Step 3: Train Final TIS-DPO Model
 
-The final model is trained using the weighted data. The loss function incorporates token-level weights to scale gradients and improve alignment with human preferences.
+The final model is trained using the weighted data. 
 
 ---
 
@@ -85,10 +86,7 @@ The trained TIS-DPO model generates responses based on test prompts. The output 
 
 ### Step 2: Evaluate with Ragas
 
-The generated outputs are passed through a Ragas-based evaluation script, which:
-- Sends outputs to a Qwen inference endpoint
-- Embeds questions/answers via a bi-encoder
-- Scores response quality using Ragas metrics
+The generated outputs are passed through a Ragas-based evaluation script.
 
 ---
 
