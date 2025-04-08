@@ -22,6 +22,23 @@ This repository provides a complete pipeline for training and evaluating a **Tok
 
 ---
 
+## Data Preparation
+
+Make sure the following files exist in the `data/` directory:
+
+- **Training Data:**
+  - `Vivi_true_train.jsonl` — Contains (chosen, rejected) pairs for positive DPO training.
+  - `Vivi_reverse_train.jsonl` — Contains (rejected, chosen) pairs for negative DPO training.
+  
+  _Note:_ Each line in these JSONL files must follow the standard format with the fields:  
+  ```json
+  {
+    "context": "...",
+    "prompt": "...",
+    "ground_truth": "...",
+    "response": "..."
+  }
+
 ## Overview
 
 This project implements the TIS-DPO training paradigm, which enhances preference modeling by computing token-level importance using both **positive** and **negative** DPO models:
