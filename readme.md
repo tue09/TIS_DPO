@@ -38,8 +38,9 @@ This project implements the TIS-DPO training paradigm, which enhances preference
 Make sure the following files exist in the `data/` directory:
 
 - **Training Data:**
-  - `Vivi_true_train.jsonl` — Contains (chosen, rejected) pairs for positive DPO training.
-  - `Vivi_reverse_train.jsonl` — Contains (rejected, chosen) pairs for negative DPO training.
+  - `Vivi_true_train.jsonl` — Contains data for positive DPO training.
+  - `Vivi_reverse_train.jsonl` — Contains data pairs for negative DPO training.
+  - `Vivi_true_test.jsonl` — Contains data for evaluate model.
   
   _Note:_ Each line in these JSONL files must follow the standard format with the fields:  
   ```json
@@ -47,7 +48,8 @@ Make sure the following files exist in the `data/` directory:
     "context": "...",
     "prompt": "...",
     "ground_truth": "...",
-    "response": "..."
+    "chosen": "...",
+    "rejected": "..."
   }
 
 ## Training Pipeline
