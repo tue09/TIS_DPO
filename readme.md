@@ -4,6 +4,16 @@ This repository provides a complete pipeline for training and evaluating a **Tok
 
 ---
 
+## Installation
+
+Install all dependencies via `pip`:
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
 ## Table of Contents
 
 - [Overview](#overview)

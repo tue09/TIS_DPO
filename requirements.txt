@@ -1,0 +1,12 @@
+torch
+transformers
+datasets
+peft
+trl
+tqdm
+pynvml
+requests
+langchain
+ragas
+numpy
+pandas

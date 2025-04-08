@@ -8,7 +8,6 @@ from datasets import load_dataset
 import json
 import os
 import argparse
-from pynvml import *
 
 # --- Argument Parser ---
 parser = argparse.ArgumentParser()
